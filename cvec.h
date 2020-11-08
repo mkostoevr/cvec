@@ -201,6 +201,12 @@ CVEC_DECL(void, assign_fill, (CVEC_TYPE **vec, size_t count, CVEC_TYPE value));
 //
 CVEC_DECL(void, assign_range, (CVEC_TYPE **vec, CVEC_TYPE *first, CVEC_TYPE *last));
 
+// @brief cvec_TYPE_data - direct access to buffer
+// @param vec - the vector
+// @return pointer to buffer
+//
+CVEC_DECL(CVEC_TYPE *, data, (CVEC_TYPE **vec));
+
 //
 // Internal macros (part 2)
 //
@@ -353,6 +359,11 @@ CVEC_DEF(void, assign_range, (CVEC_TYPE **vec, CVEC_TYPE *first, CVEC_TYPE *last
     for (CVEC_TYPE *it = first; it < last; it++, i++) {
         (*vec)[i] = *it;
     }
+})
+
+CVEC_DECL(CVEC_TYPE *, data, (CVEC_TYPE **vec), {
+    CVEC_ASSERT(vec)
+    return (*vec);
 })
 
 #undef CVEC_TYPE
