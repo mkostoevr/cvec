@@ -222,7 +222,7 @@ CVEC_DECL(CVEC_TYPE *, data, (CVEC_TYPE **vec));
 // @brief cvec_TYPE_resize - resizes the container to contain count elements
 // @param vec - the vector
 // @param count - new size
-// @return pointer to buffer
+// @return void
 //
 CVEC_DECL(void, resize, (CVEC_TYPE **vec, size_t new_size));
 
@@ -231,9 +231,15 @@ CVEC_DECL(void, resize, (CVEC_TYPE **vec, size_t new_size));
 // @param vec - the vector
 // @param count - new size
 // @param value - value to initialize new elements with
-// @return pointer to buffer
+// @return void
 //
 CVEC_DECL(void, resize_v, (CVEC_TYPE **vec, size_t new_size, CVEC_TYPE value));
+
+// @brief cvec_TYPE_clear - erases all elements from the container
+// @param vec - the vector
+// @return void
+//
+CVEC_DECL(void, clear, (CVEC_TYPE **vec));
 
 //
 // Internal macros (part 2)
@@ -417,6 +423,10 @@ CVEC_DEF(void, resize_v, (CVEC_TYPE **vec, size_t count, CVEC_TYPE value), {
             *it = value;
         }
     }
+})
+
+CVEC_DEF(void, clear, (CVEC_TYPE **vec), {
+    CVEC_CALL(set_size, vec, 0);
 })
 
 #undef CVEC_TYPE

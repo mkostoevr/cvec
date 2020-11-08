@@ -16,9 +16,9 @@ Member functions table:
 | :x: | `back` | `back` |
 | :heavy_check_mark: | `data` | `data` |
 | :heavy_check_mark: | `begin` | `begin` |
-| :heavy_check_mark: | `cbegin` |  |
+| :heavy_check_mark: | `cbegin` | `cbegin` |
 | :heavy_check_mark: | `end` | `end` |
-| :heavy_check_mark: | `cend` |  |
+| :heavy_check_mark: | `cend` | `cend` |
 | :heavy_minus_sign: | `rbegin` |  |
 | :heavy_minus_sign: | `crbegin` |  |
 | :heavy_minus_sign: | `rend` |  |
@@ -28,13 +28,13 @@ Member functions table:
 | :x: | `max_size` |  |
 | :heavy_check_mark: | `reserve` | `reserve` |
 | :heavy_check_mark: | `capacity` | `capacity` |
-| :heavy_check_mark: | `shrink_to_fit` | `shrink_to_fit` |
-| :x: | `clear` |  |
+| :heavy_check_mark: | `shrink_to_fit` | `shrink_to_fit` |git 
+| :heavy_check_mark: | `clear` | `clear` |
 | :x: | `insert` |  |
 | :x: | `emplace` |  |
 | :heavy_check_mark: | `erase` | `erase` |
 | :heavy_check_mark: | `push_back` | `push_back` |
-| :x: | `emplace_back` |  |
+| :heavy_minus_sign: | `emplace_back` |  |
 | :heavy_check_mark: | `pop_back` | `pop_back` |
 | :heavy_check_mark: | `resize` | `resize` |
 | :x: | `swap` |  |

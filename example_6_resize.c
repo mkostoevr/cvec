@@ -42,4 +42,8 @@ int main(int argc, char **argv) {
 
 	// Show info
 	printf("Just resized\n%.*s\nCapacity: %d, size: %d\n", cvec_char_size(&line), line, cvec_char_capacity(&line), cvec_char_size(&line));
+
+	cvec_char_clear(&line);
+
+	printf("Cleared\n%.*s\nCapacity: %d, size: %d\n", cvec_char_size(&line), line, cvec_char_capacity(&line), cvec_char_size(&line));	
 }
