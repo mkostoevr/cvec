@@ -31,7 +31,8 @@
 // WARNING: All used definitions will be undefined on header exit.
 //
 // Dependencies:
-// <stddef.h> or another source of size_t and ptrdiff_t typedefs
+// <stddef.h> or another source of size_t and ptrdiff_t
+// <stdint.h> or another source of SIZE_MAX
 // <stdlib.h> or another source of malloc, calloc and realloc
 // <assert.h> or another source of assert
 
@@ -275,6 +276,20 @@ CVEC_DECL(CVEC_TYPE *, back_p, (CVEC_TYPE **vec));
 //
 CVEC_DECL(size_t, max_size, (CVEC_TYPE **vec));
 
+// @brief cvec_TYPE_insert - inserts a value into vector by index
+// @param vec - the vector
+// @param vec - the index
+// @return pointer to just inserted value
+//
+CVEC_DECL(CVEC_TYPE *, insert, (CVEC_TYPE **vec, size_t index, CVEC_TYPE value));
+
+// @brief cvec_TYPE_insert_it - inserts a value into vector by iterator (pointer in vector)
+// @param vec - the vector
+// @param it - the iterator
+// @return pointer to just inserted value
+//
+CVEC_DECL(CVEC_TYPE *, insert_it, (CVEC_TYPE **vec, CVEC_TYPE *it, CVEC_TYPE value));
+
 //
 // Internal macros (part 2)
 //
@@ -486,8 +501,28 @@ CVEC_DEF(CVEC_TYPE *, back_p, (CVEC_TYPE **vec), {
 })
 
 CVEC_DEF(size_t, max_size, (CVEC_TYPE **vec), {
-    printf("%llu / %llu = %llu\n", SIZE_MAX, sizeof(**vec), SIZE_MAX / sizeof(**vec));
     return SIZE_MAX / sizeof(**vec);
+})
+
+CVEC_DEF(CVEC_TYPE *, insert, (CVEC_TYPE **vec, size_t index, CVEC_TYPE value), {
+    CVEC_ASSERT(vec);
+    if (index > CVEC_CALL(size, vec) || index < 0) {
+        return NULL; // TODO: What?
+    }
+    size_t new_size = CVEC_CALL(size, vec) + 1;
+    CVEC_CALL(reserve, vec, new_size);
+    CVEC_CALL(set_size, vec, new_size);
+    CVEC_TYPE *ret = *vec + index;
+    for (CVEC_TYPE *it = CVEC_CALL(back_p, vec); it > ret; it--) {
+        *it = it[-1];
+    }
+    *ret = value;
+    return ret;
+})
+
+CVEC_DEF(CVEC_TYPE *, insert_it, (CVEC_TYPE **vec, CVEC_TYPE *it, CVEC_TYPE value), {
+    size_t index = (it - *vec) / sizeof(**vec);
+    return CVEC_CALL(insert, vec, index, value);
 })
 
 #undef CVEC_TYPE

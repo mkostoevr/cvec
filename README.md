@@ -30,11 +30,11 @@ Member functions table:
 | :heavy_check_mark: | `capacity` | `capacity` |
 | :heavy_check_mark: | `shrink_to_fit` | `shrink_to_fit` |
 | :heavy_check_mark: | `clear` | `clear` |
-| :x: | `insert` |  |
+| :heavy_check_mark: | `insert` | `insert`, `insert_it` |
 | :heavy_minus_sign: | `emplace` | I know no way to preserve the original signature |
 | :heavy_check_mark: | `erase` | `erase` |
 | :heavy_check_mark: | `push_back` | `push_back` |
-| :heavy_minus_sign: | `emplace_back` |  |
+| :heavy_minus_sign: | `emplace_back` | I know no way to preserve the original signature |
 | :heavy_check_mark: | `pop_back` | `pop_back` |
 | :heavy_check_mark: | `resize` | `resize` |
 | :heavy_minus_sign: | `swap` | Would have n complexity in this implementation |
