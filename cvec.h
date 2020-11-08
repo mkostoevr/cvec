@@ -152,11 +152,23 @@ CVEC_DECL(void, free, (CVEC_TYPE **vec));
 //
 CVEC_DECL(CVEC_TYPE *, begin, (CVEC_TYPE **vec));
 
+// @brief cvec_TYPE_cbegin - returns a const iterator to first element of the vector
+// @param vec - the vector
+// @return a pointer to the first element (or NULL)
+//
+CVEC_DECL(const CVEC_TYPE *, cbegin, (CVEC_TYPE **vec));
+
 // @brief cvec_TYPE_end - returns an iterator to one past the last element of the vector
 // @param vec - the vector
 // @return a pointer to one past the last element (or NULL)
 //
 CVEC_DECL(CVEC_TYPE *, end, (CVEC_TYPE **vec));
+
+// @brief cvec_TYPE_cend - returns a const iterator to one past the last element of the vector
+// @param vec - the vector
+// @return a pointer to one past the last element (or NULL)
+//
+CVEC_DECL(const CVEC_TYPE *, cend, (CVEC_TYPE **vec));
 
 // @brief cvec_TYPE_push_back - adds an element to the end of the vector
 // @param vec - the vector
@@ -319,9 +331,17 @@ CVEC_DEF(CVEC_TYPE *, begin, (CVEC_TYPE **vec), {
     return *vec;
 })
 
+CVEC_DEF(const CVEC_TYPE *, cbegin, (CVEC_TYPE **vec), {
+    return CVEC_CALL(begin, vec);
+})
+
 CVEC_DEF(CVEC_TYPE *, end, (CVEC_TYPE **vec), {
     CVEC_ASSERT(vec);
     return *vec ? &((*vec)[CVEC_CALL(size, vec)]) : NULL;
+})
+
+CVEC_DEF(const CVEC_TYPE *, cend, (CVEC_TYPE **vec), {
+    return CVEC_CALL(end, vec);
 })
 
 CVEC_DEF(void, push_back, (CVEC_TYPE **vec, CVEC_TYPE value), {

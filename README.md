@@ -16,13 +16,13 @@ Member functions table:
 | :x: | `back` | `back` |
 | :heavy_check_mark: | `data` | `data` |
 | :heavy_check_mark: | `begin` | `begin` |
-| :x: | `cbegin` |  |
+| :heavy_check_mark: | `cbegin` |  |
 | :heavy_check_mark: | `end` | `end` |
-| :x: | `cend` |  |
-| :x: | `rbegin` |  |
-| :x: | `crbegin` |  |
-| :x: | `rend` |  |
-| :x: | `crend` |  |
+| :heavy_check_mark: | `cend` |  |
+| :heavy_minus_sign: | `rbegin` |  |
+| :heavy_minus_sign: | `crbegin` |  |
+| :heavy_minus_sign: | `rend` |  |
+| :heavy_minus_sign: | `crend` |  |
 | :heavy_check_mark: | `empty` | `empty` |
 | :heavy_check_mark: | `size` | `size` |
 | :x: | `max_size` |  |
