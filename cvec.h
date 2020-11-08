@@ -35,9 +35,6 @@
 // <stdlib.h> or another source of malloc, calloc and realloc
 // <assert.h> or another source of assert
 
-#ifndef CVEC_H_
-#define CVEC_H_
-
 //
 // Input macros
 //
@@ -265,6 +262,12 @@ CVEC_DECL(CVEC_TYPE, back, (CVEC_TYPE **vec));
 //
 CVEC_DECL(CVEC_TYPE *, back_p, (CVEC_TYPE **vec));
 
+// @brief cvec_TYPE_max_size - returns maximal size of the vector
+// @param vec - the vector
+// @return value
+//
+CVEC_DECL(size_t, max_size, (CVEC_TYPE **vec));
+
 //
 // Internal macros (part 2)
 //
@@ -454,10 +457,12 @@ CVEC_DEF(void, clear, (CVEC_TYPE **vec), {
 })
 
 CVEC_DEF(CVEC_TYPE, front, (CVEC_TYPE **vec), {
+    CVEC_ASSERT(vec);
     return (*vec)[0];
 })
 
 CVEC_DEF(CVEC_TYPE *, front_p, (CVEC_TYPE **vec), {
+    CVEC_ASSERT(vec);
     return (*vec);
 })
 
@@ -467,6 +472,11 @@ CVEC_DEF(CVEC_TYPE, back, (CVEC_TYPE **vec), {
 
 CVEC_DEF(CVEC_TYPE *, back_p, (CVEC_TYPE **vec), {
     return CVEC_CALL(end, vec) - 1;
+})
+
+CVEC_DEF(size_t, max_size, (CVEC_TYPE **vec), {
+    printf("%llu / %llu = %llu\n", SIZE_MAX, sizeof(**vec), SIZE_MAX / sizeof(**vec));
+    return SIZE_MAX / sizeof(**vec);
 })
 
 #undef CVEC_TYPE
@@ -497,5 +507,3 @@ CVEC_DEF(CVEC_TYPE *, back_p, (CVEC_TYPE **vec), {
 #undef CVEC_CALL
 #undef CVEC_DECL
 #undef CVEC_DEF
-
-#endif // CVEC_H_

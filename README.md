@@ -25,7 +25,7 @@ Member functions table:
 | :heavy_minus_sign: | `crend` |  |
 | :heavy_check_mark: | `empty` | `empty` |
 | :heavy_check_mark: | `size` | `size` |
-| :x: | `max_size` |  |
+| :heavy_check_mark: | `max_size` | `max_size` |
 | :heavy_check_mark: | `reserve` | `reserve` |
 | :heavy_check_mark: | `capacity` | `capacity` |
 | :heavy_check_mark: | `shrink_to_fit` | `shrink_to_fit` |
