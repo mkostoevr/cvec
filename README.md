@@ -19,10 +19,10 @@ Member functions table:
 | :heavy_check_mark: | `cbegin` | `cbegin` |
 | :heavy_check_mark: | `end` | `end` |
 | :heavy_check_mark: | `cend` | `cend` |
-| :heavy_minus_sign: | `rbegin` |  |
-| :heavy_minus_sign: | `crbegin` |  |
-| :heavy_minus_sign: | `rend` |  |
-| :heavy_minus_sign: | `crend` |  |
+| :heavy_minus_sign: | `rbegin` | No reverse iterators in the language |
+| :heavy_minus_sign: | `crbegin` | No reverse iterators in the language |
+| :heavy_minus_sign: | `rend` | No reverse iterators in the language |
+| :heavy_minus_sign: | `crend` | No reverse iterators in the language |
 | :heavy_check_mark: | `empty` | `empty` |
 | :heavy_check_mark: | `size` | `size` |
 | :heavy_check_mark: | `max_size` | `max_size` |
@@ -31,7 +31,7 @@ Member functions table:
 | :heavy_check_mark: | `shrink_to_fit` | `shrink_to_fit` |
 | :heavy_check_mark: | `clear` | `clear` |
 | :x: | `insert` |  |
-| :heavy_minus_sign: | `emplace` |  |
+| :heavy_minus_sign: | `emplace` | I know no way to preserve the original signature |
 | :heavy_check_mark: | `erase` | `erase` |
 | :heavy_check_mark: | `push_back` | `push_back` |
 | :heavy_minus_sign: | `emplace_back` |  |
