@@ -1,7 +1,43 @@
 # cvec - partial `std::vector` implementation in C.
 ## Not full implementation of [std::vector](https://en.cppreference.com/w/cpp/container/vector/reserve).
 
-Supported methods may be seen in [cvec.h](cvec.h).
+Member functions table:
+
+| Status | Name | Function |
+| :---: | --- | --- |
+| :heavy_check_mark: | (constructor) | new |
+| :heavy_check_mark: | (destructor) | free |
+| :heavy_minus_sign: | operator= |  |
+| :x: | assign |  |
+| :heavy_minus_sign: | get_allocator |  |
+| :heavy_check_mark: | at | at |
+| :heavy_check_mark: | operator[] | [] |
+| :x: | front | front |
+| :x: | back | back |
+| :x: | data |  |
+| :heavy_check_mark: | begin |  |
+| :x: | cbegin |  |
+| :heavy_check_mark: | end |  |
+| :x: | cend |  |
+| :x: | rbegin |  |
+| :x: | crbegin |  |
+| :x: | rend |  |
+| :x: | crend |  |
+| :heavy_check_mark: | empty |  |
+| :heavy_check_mark: | size |  |
+| :x: | max_size |  |
+| :heavy_check_mark: | reserve |  |
+| :heavy_check_mark: | capacity |  |
+| :heavy_check_mark: | shrink_to_fit |  |
+| :x: | clear |  |
+| :x: | insert |  |
+| :x: | emplace |  |
+| :heavy_check_mark: | erase |  |
+| :heavy_check_mark: | push_back |  |
+| :x: | emplace_back |  |
+| :heavy_check_mark: | pop_back |  |
+| :x: | resize |  |
+| :x: | swap |  |
 
 ## Easy to use
 
@@ -50,4 +86,3 @@ Also somewhere in the project the functinos should be instantiated as follows:
 ## Has no fixed dependencies
 
 Every function it uses may be overridden. More information about dependencies in [cvec.h](cvec.h).
-

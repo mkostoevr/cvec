@@ -21,7 +21,7 @@
 // CVEC_MALLOC:  Replacement for malloc from <stdlib.h>
 // CVEC_REALLOC: Replacement for realloc from <stdlib.h>
 // CVEC_FREE:    Replacement for free from <stdlib.h>
-// CVEC_OOBH:    Out-of-bounds handler (gets __FILE__, __LINE__, vector data address and index)
+// CVEC_OOBH:    Out-of-bounds handler (gets __func__, vector data address and index of overflow)
 // CVEC_OOBVAL:  Default value to return on out of bounds access
 //
 // Minimal definitions for declaration: CVEC_TYPE
@@ -180,6 +180,12 @@ CVEC_DECL(CVEC_TYPE, at, (CVEC_TYPE **vec, size_t i));
 //
 CVEC_DECL(void, reserve, (CVEC_TYPE **vec, size_t new_cap));
 
+// @brief cvec_TYPE_shrink_to_fit - requests the removal of unused capacity
+// @param vec - the vector
+// @return void
+//
+CVEC_DECL(void, shrink_to_fit, (CVEC_TYPE **vec));
+
 //
 // Internal macros (part 2)
 //
@@ -306,6 +312,12 @@ CVEC_DEF(void, reserve, (CVEC_TYPE **vec, size_t new_cap), {
         return;
     }
     CVEC_CALL(grow, vec, new_cap);
+})
+
+CVEC_DEF(void, shrink_to_fit, (CVEC_TYPE **vec), {
+    if (CVEC_CALL(capacity, vec) > CVEC_CALL(size, vec)) {
+        CVEC_CALL(grow, vec, CVEC_CALL(size, vec));
+    }
 })
 
 #undef CVEC_TYPE
