@@ -166,7 +166,7 @@ CVEC_DECL(CVEC_TYPE *, end, (CVEC_TYPE **vec));
 CVEC_DECL(void, push_back, (CVEC_TYPE **vec, CVEC_TYPE value));
 
 // @brief cvec_TYPE_at - get element with bounds checking (on out of bounds calls CVEC_OOBH if is
-//                       defined and returns CVEC_DEFAULT)
+//                       defined and returns CVEC_OOBVAL)
 // @param vec - the vector
 // @param i - index
 // @return element's value
@@ -206,6 +206,22 @@ CVEC_DECL(void, assign_range, (CVEC_TYPE **vec, CVEC_TYPE *first, CVEC_TYPE *las
 // @return pointer to buffer
 //
 CVEC_DECL(CVEC_TYPE *, data, (CVEC_TYPE **vec));
+
+// @brief cvec_TYPE_resize - resizes the container to contain count elements
+// @param vec - the vector
+// @param count - new size
+// @return pointer to buffer
+//
+CVEC_DECL(void, resize, (CVEC_TYPE **vec, size_t new_size));
+
+// @brief cvec_TYPE_resize - resizes the container to contain count elements, initializes new
+//                           elements by value
+// @param vec - the vector
+// @param count - new size
+// @param value - value to initialize new elements with
+// @return pointer to buffer
+//
+CVEC_DECL(void, resize_v, (CVEC_TYPE **vec, size_t new_size, CVEC_TYPE value));
 
 //
 // Internal macros (part 2)
@@ -352,18 +368,35 @@ CVEC_DEF(void, assign_fill, (CVEC_TYPE **vec, size_t count, CVEC_TYPE value), {
 
 CVEC_DEF(void, assign_range, (CVEC_TYPE **vec, CVEC_TYPE *first, CVEC_TYPE *last), {
     CVEC_ASSERT(vec);
-    size_t new_cap = ((ptrdiff_t)(last - first)) / sizeof(*first);
-    CVEC_CALL(reserve, vec, new_cap);
-    CVEC_CALL(set_size, vec, new_cap); // If the buffer was bigger than new_cap, set size ourselves
+    size_t new_size = ((ptrdiff_t)(last - first)) / sizeof(*first);
+    CVEC_CALL(reserve, vec, new_size);
+    CVEC_CALL(set_size, vec, new_size);
     size_t i = 0;
     for (CVEC_TYPE *it = first; it < last; it++, i++) {
         (*vec)[i] = *it;
     }
 })
 
-CVEC_DECL(CVEC_TYPE *, data, (CVEC_TYPE **vec), {
-    CVEC_ASSERT(vec)
+CVEC_DEF(CVEC_TYPE *, data, (CVEC_TYPE **vec), {
+    CVEC_ASSERT(vec);
     return (*vec);
+})
+
+CVEC_DEF(void, resize, (CVEC_TYPE **vec, size_t count)) {
+    CVEC_TYPE value = { 0 };
+    CVEC_CALL(resize_v, vec, count, value);
+}
+
+CVEC_DEF(void, resize_v, (CVEC_TYPE **vec, size_t count, CVEC_TYPE value), {
+    CVEC_ASSERT(vec);
+    size_t old_size = CVEC_CALL(size, vec);
+    CVEC_CALL(set_size, vec, count);
+    if (CVEC_CALL(capacity, vec) < count) {
+        CVEC_CALL(reserve, vec, count);
+        for (CVEC_TYPE *it = (*vec) + old_size; it < CVEC_CALL(end, vec); it++) {
+            *it = value;
+        }
+    }
 })
 
 #undef CVEC_TYPE

@@ -36,7 +36,7 @@ Member functions table:
 | :heavy_check_mark: | `push_back` | `push_back` |
 | :x: | `emplace_back` |  |
 | :heavy_check_mark: | `pop_back` | `pop_back` |
-| :x: | `resize` |  |
+| :heavy_check_mark: | `resize` | `resize` |
 | :x: | `swap` |  |
 
 ## Easy to use

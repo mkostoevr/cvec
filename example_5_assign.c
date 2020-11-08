@@ -1,6 +1,5 @@
 //
-// The example program prints command a sequence of numbers.
-// The numbers are copied into the vector using assign_* methods.
+// The example program uses assign functions.
 //
 // More info in cvec.h
 //
