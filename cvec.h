@@ -31,7 +31,7 @@
 // WARNING: All used definitions will be undefined on header exit.
 //
 // Dependencies:
-// <stddef.h> or another source of size_t typedef
+// <stddef.h> or another source of size_t and ptrdiff_t typedefs
 // <stdlib.h> or another source of malloc, calloc and realloc
 // <assert.h> or another source of assert
 
@@ -186,6 +186,21 @@ CVEC_DECL(void, reserve, (CVEC_TYPE **vec, size_t new_cap));
 //
 CVEC_DECL(void, shrink_to_fit, (CVEC_TYPE **vec));
 
+// @brief cvec_TYPE_assign_fill - replaces the contents with count copies of value value
+// @param vec - the vector
+// @param value - the value
+// @return void
+//
+CVEC_DECL(void, assign_fill, (CVEC_TYPE **vec, size_t count, CVEC_TYPE value));
+
+// @brief cvec_TYPE_assign_range - replaces the contents with data from range [first, last)
+// @param vec - the vector
+// @param first - range start
+// @param last - range end
+// @return void
+//
+CVEC_DECL(void, assign_range, (CVEC_TYPE **vec, CVEC_TYPE *first, CVEC_TYPE *last));
+
 //
 // Internal macros (part 2)
 //
@@ -317,6 +332,26 @@ CVEC_DEF(void, reserve, (CVEC_TYPE **vec, size_t new_cap), {
 CVEC_DEF(void, shrink_to_fit, (CVEC_TYPE **vec), {
     if (CVEC_CALL(capacity, vec) > CVEC_CALL(size, vec)) {
         CVEC_CALL(grow, vec, CVEC_CALL(size, vec));
+    }
+})
+
+CVEC_DEF(void, assign_fill, (CVEC_TYPE **vec, size_t count, CVEC_TYPE value), {
+    CVEC_ASSERT(vec);
+    CVEC_CALL(reserve, vec, count);
+    CVEC_CALL(set_size, vec, count); // If the buffer was bigger than new_cap, set size ourselves
+    for (size_t i = 0; i < count; i++) {
+        (*vec)[i] = value;
+    }
+})
+
+CVEC_DEF(void, assign_range, (CVEC_TYPE **vec, CVEC_TYPE *first, CVEC_TYPE *last), {
+    CVEC_ASSERT(vec);
+    size_t new_cap = ((ptrdiff_t)(last - first)) / sizeof(*first);
+    CVEC_CALL(reserve, vec, new_cap);
+    CVEC_CALL(set_size, vec, new_cap); // If the buffer was bigger than new_cap, set size ourselves
+    size_t i = 0;
+    for (CVEC_TYPE *it = first; it < last; it++, i++) {
+        (*vec)[i] = *it;
     }
 })
 

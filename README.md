@@ -8,34 +8,34 @@ Member functions table:
 | :heavy_check_mark: | (constructor) | new |
 | :heavy_check_mark: | (destructor) | free |
 | :heavy_minus_sign: | operator= |  |
-| :x: | assign |  |
+| :heavy_check_mark: | assign | assign_fill, assign_range |
 | :heavy_minus_sign: | get_allocator |  |
 | :heavy_check_mark: | at | at |
 | :heavy_check_mark: | operator[] | [] |
 | :x: | front | front |
 | :x: | back | back |
 | :x: | data |  |
-| :heavy_check_mark: | begin |  |
+| :heavy_check_mark: | begin | begin |
 | :x: | cbegin |  |
-| :heavy_check_mark: | end |  |
+| :heavy_check_mark: | end | end |
 | :x: | cend |  |
 | :x: | rbegin |  |
 | :x: | crbegin |  |
 | :x: | rend |  |
 | :x: | crend |  |
-| :heavy_check_mark: | empty |  |
-| :heavy_check_mark: | size |  |
+| :heavy_check_mark: | empty | empty |
+| :heavy_check_mark: | size | size |
 | :x: | max_size |  |
-| :heavy_check_mark: | reserve |  |
-| :heavy_check_mark: | capacity |  |
-| :heavy_check_mark: | shrink_to_fit |  |
+| :heavy_check_mark: | reserve | reserve |
+| :heavy_check_mark: | capacity | capacity |
+| :heavy_check_mark: | shrink_to_fit | shrink_to_fit |
 | :x: | clear |  |
 | :x: | insert |  |
 | :x: | emplace |  |
-| :heavy_check_mark: | erase |  |
-| :heavy_check_mark: | push_back |  |
+| :heavy_check_mark: | erase | erase |
+| :heavy_check_mark: | push_back | push_back |
 | :x: | emplace_back |  |
-| :heavy_check_mark: | pop_back |  |
+| :heavy_check_mark: | pop_back | pop_back |
 | :x: | resize |  |
 | :x: | swap |  |
 
