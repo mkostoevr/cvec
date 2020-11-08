@@ -210,6 +210,13 @@ CVEC_DECL(void, assign_fill, (CVEC_TYPE **vec, size_t count, CVEC_TYPE value));
 //
 CVEC_DECL(void, assign_range, (CVEC_TYPE **vec, CVEC_TYPE *first, CVEC_TYPE *last));
 
+// @brief cvec_TYPE_assign_other - replaces the contents with contetns of other
+// @param vec - the vector
+// @param other - the vector where contents will be copied from
+// @return void
+//
+CVEC_DECL(void, assign_other, (CVEC_TYPE **vec, CVEC_TYPE **other));
+
 // @brief cvec_TYPE_data - direct access to buffer
 // @param vec - the vector
 // @return pointer to buffer
@@ -428,6 +435,10 @@ CVEC_DEF(void, assign_range, (CVEC_TYPE **vec, CVEC_TYPE *first, CVEC_TYPE *last
     for (CVEC_TYPE *it = first; it < last; it++, i++) {
         (*vec)[i] = *it;
     }
+})
+
+CVEC_DEF(void, assign_other, (CVEC_TYPE **vec, CVEC_TYPE **other), {
+    CVEC_CALL(assign_range, vec, CVEC_CALL(begin, other), CVEC_CALL(end, other));
 })
 
 CVEC_DEF(CVEC_TYPE *, data, (CVEC_TYPE **vec), {

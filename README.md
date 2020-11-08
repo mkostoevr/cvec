@@ -1,15 +1,15 @@
 # cvec - partial `std::vector` implementation in C.
-## Not full implementation of `std::vector`
+## Partial implementation of `std::vector`
 
 Member functions table:
 
-| Status | Name | Function |
+| Status | Name | Function or reason if not implemented |
 | :---: | --- | --- |
 | :heavy_check_mark: | `(constructor)` | `new` |
 | :heavy_check_mark: | `(destructor)` | `free` |
-| :heavy_minus_sign: | `operator=` |  |
+| :heavy_check_mark: | `operator=` | `assign_other` |
 | :heavy_check_mark: | `assign` | `assign_fill`, `assign_range` |
-| :heavy_minus_sign: | `get_allocator` |  |
+| :heavy_minus_sign: | `get_allocator` | No `allocator` objects in the language |
 | :heavy_check_mark: | `at` | `at` |
 | :heavy_check_mark: | `operator[]` | `[]` |
 | :heavy_check_mark: | `front` | `front`, `front_p` |
@@ -37,7 +37,7 @@ Member functions table:
 | :heavy_minus_sign: | `emplace_back` |  |
 | :heavy_check_mark: | `pop_back` | `pop_back` |
 | :heavy_check_mark: | `resize` | `resize` |
-| :x: | `swap` |  |
+| :heavy_minus_sign: | `swap` | Would have n complexity in this implementation |
 
 ## Easy to use
 
