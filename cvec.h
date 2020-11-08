@@ -241,6 +241,30 @@ CVEC_DECL(void, resize_v, (CVEC_TYPE **vec, size_t new_size, CVEC_TYPE value));
 //
 CVEC_DECL(void, clear, (CVEC_TYPE **vec));
 
+// @brief cvec_TYPE_front - returns the first element of the vector
+// @param vec - the vector
+// @return value
+//
+CVEC_DECL(CVEC_TYPE, front, (CVEC_TYPE **vec));
+
+// @brief cvec_TYPE_front_p - returns a pointer to the first element of the vector
+// @param vec - the vector
+// @return value
+//
+CVEC_DECL(CVEC_TYPE *, front_p, (CVEC_TYPE **vec));
+
+// @brief cvec_TYPE_back - returns the last element of the vector
+// @param vec - the vector
+// @return value
+//
+CVEC_DECL(CVEC_TYPE, back, (CVEC_TYPE **vec));
+
+// @brief cvec_TYPE_back_p - returns a pointer to the last element of the vector
+// @param vec - the vector
+// @return value
+//
+CVEC_DECL(CVEC_TYPE *, back_p, (CVEC_TYPE **vec));
+
 //
 // Internal macros (part 2)
 //
@@ -427,6 +451,22 @@ CVEC_DEF(void, resize_v, (CVEC_TYPE **vec, size_t count, CVEC_TYPE value), {
 
 CVEC_DEF(void, clear, (CVEC_TYPE **vec), {
     CVEC_CALL(set_size, vec, 0);
+})
+
+CVEC_DEF(CVEC_TYPE, front, (CVEC_TYPE **vec), {
+    return (*vec)[0];
+})
+
+CVEC_DEF(CVEC_TYPE *, front_p, (CVEC_TYPE **vec), {
+    return (*vec);
+})
+
+CVEC_DEF(CVEC_TYPE, back, (CVEC_TYPE **vec), {
+    return CVEC_CALL(end, vec)[-1];
+})
+
+CVEC_DEF(CVEC_TYPE *, back_p, (CVEC_TYPE **vec), {
+    return CVEC_CALL(end, vec) - 1;
 })
 
 #undef CVEC_TYPE

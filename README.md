@@ -12,8 +12,8 @@ Member functions table:
 | :heavy_minus_sign: | `get_allocator` |  |
 | :heavy_check_mark: | `at` | `at` |
 | :heavy_check_mark: | `operator[]` | `[]` |
-| :x: | `front` | `front` |
-| :x: | `back` | `back` |
+| :heavy_check_mark: | `front` | `front`, `front_p` |
+| :heavy_check_mark: | `back` | `back`, `back_p` |
 | :heavy_check_mark: | `data` | `data` |
 | :heavy_check_mark: | `begin` | `begin` |
 | :heavy_check_mark: | `cbegin` | `cbegin` |
@@ -28,10 +28,10 @@ Member functions table:
 | :x: | `max_size` |  |
 | :heavy_check_mark: | `reserve` | `reserve` |
 | :heavy_check_mark: | `capacity` | `capacity` |
-| :heavy_check_mark: | `shrink_to_fit` | `shrink_to_fit` |git 
+| :heavy_check_mark: | `shrink_to_fit` | `shrink_to_fit` |
 | :heavy_check_mark: | `clear` | `clear` |
 | :x: | `insert` |  |
-| :x: | `emplace` |  |
+| :heavy_minus_sign: | `emplace` |  |
 | :heavy_check_mark: | `erase` | `erase` |
 | :heavy_check_mark: | `push_back` | `push_back` |
 | :heavy_minus_sign: | `emplace_back` |  |
