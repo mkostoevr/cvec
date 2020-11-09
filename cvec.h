@@ -63,467 +63,378 @@
 #endif
 
 //
-// Internal macros (part 1)
+// Internal macros
 //
 
 #define CVEC_CONCAT2_IMPL(x, y) cvec_ ## x ## _ ## y
 #define CVEC_CONCAT2(x, y) CVEC_CONCAT2_IMPL(x, y)
 
-// Creates method name according to CVEC_TYPE
+/// Creates method name according to CVEC_TYPE
 #define CVEC_FUN(name) CVEC_CONCAT2(CVEC_TYPE, name)
 
-// Declares a function
-#define CVEC_DECL(type, name, args) type CVEC_FUN(name) args
+#define cvec_x_new CVEC_FUN(new)
+#define cvec_x_capacity CVEC_FUN(capacity)
+#define cvec_x_size CVEC_FUN(size)
+#define cvec_x_empty CVEC_FUN(empty)
+#define cvec_x_pop_back CVEC_FUN(pop_back)
+#define cvec_x_erase CVEC_FUN(erase)
+#define cvec_x_free CVEC_FUN(free)
+#define cvec_x_begin CVEC_FUN(begin)
+#define cvec_x_cbegin CVEC_FUN(cbegin)
+#define cvec_x_end CVEC_FUN(end)
+#define cvec_x_cend CVEC_FUN(cend)
+#define cvec_x_push_back CVEC_FUN(push_back)
+#define cvec_x_at CVEC_FUN(at)
+#define cvec_x_reserve CVEC_FUN(reserve)
+#define cvec_x_shrink_to_fit CVEC_FUN(shrink_to_fit)
+#define cvec_x_assign_fill CVEC_FUN(assign_fill)
+#define cvec_x_assign_range CVEC_FUN(assign_range)
+#define cvec_x_assign_other CVEC_FUN(assign_other)
+#define cvec_x_data CVEC_FUN(data)
+#define cvec_x_resize CVEC_FUN(resize)
+#define cvec_x_resize_v CVEC_FUN(resize_v)
+#define cvec_x_clear CVEC_FUN(clear)
+#define cvec_x_front CVEC_FUN(front)
+#define cvec_x_front_p CVEC_FUN(front_p)
+#define cvec_x_back CVEC_FUN(back)
+#define cvec_x_back_p CVEC_FUN(back_p)
+#define cvec_x_max_size CVEC_FUN(max_size)
+#define cvec_x_insert CVEC_FUN(insert)
+#define cvec_x_insert_it CVEC_FUN(insert_it)
 
 //
 // External declarations
 //
 
-// @brief cvec_TYPE_new - Allocates new vector of specified capacity
-// @param count - the capacity
-// @return a pointer to the first element of the new vector
-//
-CVEC_DECL(CVEC_TYPE *, new, (size_t count));
+/// Allocates new vector of specified capacity.
+CVEC_TYPE *cvec_x_new(size_t count);
 
-// @brief cvec_TYPE_set_capacity - For internal use, sets the capacity variable of the vector
-// @param vec - the vector
-// @param size - the new capacity to set
-// @return void
-//
-CVEC_DECL(void, set_capacity, (CVEC_TYPE **vec, size_t size));
+/// Gets the current capacity of the vector.
+size_t cvec_x_capacity(CVEC_TYPE **vec);
 
-// @brief cvec_TYPE_set_size - For internal use, sets the size variable of the vector
-// @param vec - the vector
-// @param size - the new capacity to set
-// @return void
-//
-CVEC_DECL(void, set_size, (CVEC_TYPE **vec, size_t size));
+/// Gets the current size of the vector.
+size_t cvec_x_size(CVEC_TYPE **vec);
 
-// @brief cvec_TYPE_capacity - gets the current capacity of the vector
-// @param vec - the vector
-// @return the capacity as a size_t
-//
-CVEC_DECL(size_t, capacity, (CVEC_TYPE **vec));
+/// Returns non-zero if the vector is empty.
+int cvec_x_empty(CVEC_TYPE **vec);
 
-// @brief cvec_TYPE_size - gets the current size of the vector
-// @param vec - the vector
-// @return the size as a size_t
-//
-CVEC_DECL(size_t, size, (CVEC_TYPE **vec));
+/// Removes the last element from the vector.
+void cvec_x_pop_back(CVEC_TYPE **vec);
 
-// @brief cvec_TYPE_empty - returns non-zero if the vector is empty
-// @param vec - the vector
-// @return non-zero if empty, zero if non-empty
-//
-CVEC_DECL(int, empty, (CVEC_TYPE **vec));
+/// Removes the element at index i from the vector.
+void cvec_x_erase(CVEC_TYPE **vec, size_t i);
 
-// @brief cvec_TYPE_grow - For internal use, ensures that the vector is at least <count> elements
-//                         big
-// @param vec - the vector
-// @param count - the new capacity to set
-// @return void
-//
-CVEC_DECL(void, grow, (CVEC_TYPE **vec, size_t count));
+/// Frees all memory associated with the vector.
+void cvec_x_free(CVEC_TYPE **vec);
 
-// @brief cvec_TYPE_pop_back - removes the last element from the vector
-// @param vec - the vector
-// @return void
-//
-CVEC_DECL(void, pop_back, (CVEC_TYPE **vec));
+/// Returns an iterator to first element of the vector.
+CVEC_TYPE *cvec_x_begin(CVEC_TYPE **vec);
 
-// @brief cvec_TYPE_erase - removes the element at index i from the vector
-// @param vec - the vector
-// @param i - index of element to remove
-// @return void
-//
-CVEC_DECL(void, erase, (CVEC_TYPE **vec, size_t i));
+/// Returns a const iterator to first element of the vector
+const CVEC_TYPE *cvec_x_cbegin(CVEC_TYPE **vec);
 
-// @brief cvec_TYPE_free - frees all memory associated with the vector
-// @param vec - the vector
-// @return void
-//
-CVEC_DECL(void, free, (CVEC_TYPE **vec));
+/// Returns an iterator to one past the last element of the vector.
+CVEC_TYPE *cvec_x_end(CVEC_TYPE **vec);
 
-// @brief cvec_TYPE_begin - returns an iterator to first element of the vector
-// @param vec - the vector
-// @return a pointer to the first element (or NULL)
-//
-CVEC_DECL(CVEC_TYPE *, begin, (CVEC_TYPE **vec));
+/// Returns a const iterator to one past the last element of the vector.
+const CVEC_TYPE *cvec_x_cend(CVEC_TYPE **vec);
 
-// @brief cvec_TYPE_cbegin - returns a const iterator to first element of the vector
-// @param vec - the vector
-// @return a pointer to the first element (or NULL)
-//
-CVEC_DECL(const CVEC_TYPE *, cbegin, (CVEC_TYPE **vec));
+/// Adds an element to the end of the vector.
+void cvec_x_push_back(CVEC_TYPE **vec, CVEC_TYPE value);
 
-// @brief cvec_TYPE_end - returns an iterator to one past the last element of the vector
-// @param vec - the vector
-// @return a pointer to one past the last element (or NULL)
-//
-CVEC_DECL(CVEC_TYPE *, end, (CVEC_TYPE **vec));
+/// Gets element with bounds checking. On out of bounds calls CVEC_OOBH and returns CVEC_OOBVAL.
+CVEC_TYPE cvec_x_at(CVEC_TYPE **vec, size_t i);
 
-// @brief cvec_TYPE_cend - returns a const iterator to one past the last element of the vector
-// @param vec - the vector
-// @return a pointer to one past the last element (or NULL)
-//
-CVEC_DECL(const CVEC_TYPE *, cend, (CVEC_TYPE **vec));
+/// Increases the capacity of the vector to a value that's equal to new_cap.
+void cvec_x_reserve(CVEC_TYPE **vec, size_t new_cap);
 
-// @brief cvec_TYPE_push_back - adds an element to the end of the vector
-// @param vec - the vector
-// @param value - the value to add
-// @return void
-//
-CVEC_DECL(void, push_back, (CVEC_TYPE **vec, CVEC_TYPE value));
+/// Requests the removal of unused capacity.
+void cvec_x_shrink_to_fit(CVEC_TYPE **vec);
 
-// @brief cvec_TYPE_at - get element with bounds checking (on out of bounds calls CVEC_OOBH if is
-//                       defined and returns CVEC_OOBVAL)
-// @param vec - the vector
-// @param i - index
-// @return element's value
-//
-CVEC_DECL(CVEC_TYPE, at, (CVEC_TYPE **vec, size_t i));
+/// Replaces the contents with count copies of value value.
+void cvec_x_assign_fill(CVEC_TYPE **vec, size_t count, CVEC_TYPE value);
 
-// @brief cvec_TYPE_at - increase the capacity of the vector to a value that's equal to new_cap
-// @param vec - the vector
-// @param new_cap - new capacity
-// @return element's value
-//
-CVEC_DECL(void, reserve, (CVEC_TYPE **vec, size_t new_cap));
+/// Replaces the contents with data from range [first, last).
+void cvec_x_assign_range(CVEC_TYPE **vec, CVEC_TYPE *first, CVEC_TYPE *last);
 
-// @brief cvec_TYPE_shrink_to_fit - requests the removal of unused capacity
-// @param vec - the vector
-// @return void
-//
-CVEC_DECL(void, shrink_to_fit, (CVEC_TYPE **vec));
+/// Replaces the contents with contetns of other.
+void cvec_x_assign_other(CVEC_TYPE **vec, CVEC_TYPE **other);
 
-// @brief cvec_TYPE_assign_fill - replaces the contents with count copies of value value
-// @param vec - the vector
-// @param value - the value
-// @return void
-//
-CVEC_DECL(void, assign_fill, (CVEC_TYPE **vec, size_t count, CVEC_TYPE value));
+/// Gives direct access to buffer.
+CVEC_TYPE *cvec_x_data(CVEC_TYPE **vec);
 
-// @brief cvec_TYPE_assign_range - replaces the contents with data from range [first, last)
-// @param vec - the vector
-// @param first - range start
-// @param last - range end
-// @return void
-//
-CVEC_DECL(void, assign_range, (CVEC_TYPE **vec, CVEC_TYPE *first, CVEC_TYPE *last));
+/// Resizes the container to contain count elements.
+void cvec_x_resize(CVEC_TYPE **vec, size_t new_size);
 
-// @brief cvec_TYPE_assign_other - replaces the contents with contetns of other
-// @param vec - the vector
-// @param other - the vector where contents will be copied from
-// @return void
-//
-CVEC_DECL(void, assign_other, (CVEC_TYPE **vec, CVEC_TYPE **other));
+/// Resizes the container to contain count elements, initializes new elements by value.
+void cvec_x_resize_v(CVEC_TYPE **vec, size_t new_size, CVEC_TYPE value);
 
-// @brief cvec_TYPE_data - direct access to buffer
-// @param vec - the vector
-// @return pointer to buffer
-//
-CVEC_DECL(CVEC_TYPE *, data, (CVEC_TYPE **vec));
+/// Erases all elements from the container.
+void cvec_x_clear(CVEC_TYPE **vec);
 
-// @brief cvec_TYPE_resize - resizes the container to contain count elements
-// @param vec - the vector
-// @param count - new size
-// @return void
-//
-CVEC_DECL(void, resize, (CVEC_TYPE **vec, size_t new_size));
+/// Returns the first element of the vector.
+CVEC_TYPE cvec_x_front(CVEC_TYPE **vec);
 
-// @brief cvec_TYPE_resize - resizes the container to contain count elements, initializes new
-//                           elements by value
-// @param vec - the vector
-// @param count - new size
-// @param value - value to initialize new elements with
-// @return void
-//
-CVEC_DECL(void, resize_v, (CVEC_TYPE **vec, size_t new_size, CVEC_TYPE value));
+/// Returns a pointer to the first element of the vector.
+CVEC_TYPE *cvec_x_front_p(CVEC_TYPE **vec);
 
-// @brief cvec_TYPE_clear - erases all elements from the container
-// @param vec - the vector
-// @return void
-//
-CVEC_DECL(void, clear, (CVEC_TYPE **vec));
+/// Returns the last element of the vector.
+CVEC_TYPE cvec_x_back(CVEC_TYPE **vec);
 
-// @brief cvec_TYPE_front - returns the first element of the vector
-// @param vec - the vector
-// @return value
-//
-CVEC_DECL(CVEC_TYPE, front, (CVEC_TYPE **vec));
+/// Returns a pointer to the last element of the vector.
+CVEC_TYPE *cvec_x_back_p(CVEC_TYPE **vec);
 
-// @brief cvec_TYPE_front_p - returns a pointer to the first element of the vector
-// @param vec - the vector
-// @return value
-//
-CVEC_DECL(CVEC_TYPE *, front_p, (CVEC_TYPE **vec));
+/// Returns maximal size of the vector.
+size_t cvec_x_max_size(CVEC_TYPE **vec);
 
-// @brief cvec_TYPE_back - returns the last element of the vector
-// @param vec - the vector
-// @return value
-//
-CVEC_DECL(CVEC_TYPE, back, (CVEC_TYPE **vec));
+/// Inserts a value into vector by index.
+CVEC_TYPE *cvec_x_insert(CVEC_TYPE **vec, size_t index, CVEC_TYPE value);
 
-// @brief cvec_TYPE_back_p - returns a pointer to the last element of the vector
-// @param vec - the vector
-// @return value
-//
-CVEC_DECL(CVEC_TYPE *, back_p, (CVEC_TYPE **vec));
-
-// @brief cvec_TYPE_max_size - returns maximal size of the vector
-// @param vec - the vector
-// @return value
-//
-CVEC_DECL(size_t, max_size, (CVEC_TYPE **vec));
-
-// @brief cvec_TYPE_insert - inserts a value into vector by index
-// @param vec - the vector
-// @param vec - the index
-// @return pointer to just inserted value
-//
-CVEC_DECL(CVEC_TYPE *, insert, (CVEC_TYPE **vec, size_t index, CVEC_TYPE value));
-
-// @brief cvec_TYPE_insert_it - inserts a value into vector by iterator (pointer in vector)
-// @param vec - the vector
-// @param it - the iterator
-// @return pointer to just inserted value
-//
-CVEC_DECL(CVEC_TYPE *, insert_it, (CVEC_TYPE **vec, CVEC_TYPE *it, CVEC_TYPE value));
-
-//
-// Internal macros (part 2)
-//
-
-// Defines a function, __VA_ARGS__ is the function's body
-#ifdef CVEC_INST
-#   define CVEC_DEF(type, name, args, ...) type CVEC_FUN(name) args __VA_ARGS__
-#else
-#   define CVEC_DEF(type, name, args, ...)
-#endif
-
-// Calls a method
-#define CVEC_CALL(name, ...) CVEC_FUN(name)(__VA_ARGS__)
+/// Inserts a value into vector by iterator (pointer in vector).
+CVEC_TYPE *cvec_x_insert_it(CVEC_TYPE **vec, CVEC_TYPE *it, CVEC_TYPE value);
 
 //
 // Function definitions
 //
 
-CVEC_DEF(CVEC_TYPE *, new, (size_t count), {
+#ifdef CVEC_INST
+
+/// Ensures that the vector is at least <count> elements big.
+static void cvec_x_grow(CVEC_TYPE **vec, size_t count);
+
+/// Sets the capacity variable of the vector.
+static void cvec_x_set_capacity(CVEC_TYPE **vec, size_t size);
+
+/// Sets the size variable of the vector.
+static void cvec_x_set_size(CVEC_TYPE **vec, size_t size);
+
+//
+// Public functions
+//
+
+CVEC_TYPE *cvec_x_new(size_t count) {
     const size_t cv_sz = count * sizeof(CVEC_TYPE) + sizeof(size_t) * 2;
     size_t *cv_p = CVEC_MALLOC(cv_sz);
     CVEC_ASSERT(cv_p);
     CVEC_TYPE *vec = (void *)(&cv_p[2]);
-    CVEC_CALL(set_capacity, &vec, count);
-    CVEC_CALL(set_size, &vec, 0);
+    cvec_x_set_capacity(&vec, count);
+    cvec_x_set_size(&vec, 0);
     return vec;
-})
+}
 
-CVEC_DEF(void, set_capacity, (CVEC_TYPE **vec, size_t size), {
+size_t cvec_x_capacity(CVEC_TYPE **vec) {
+    CVEC_ASSERT(vec);
+    return *vec ? ((size_t *)*vec)[-1] : (size_t)0;
+}
+
+size_t cvec_x_size(CVEC_TYPE **vec) {
+    CVEC_ASSERT(vec);
+    return *vec ? ((size_t *)*vec)[-2] : (size_t)0;
+}
+
+int cvec_x_empty(CVEC_TYPE **vec) {
+    return cvec_x_size(vec) == 0;
+}
+
+void cvec_x_pop_back(CVEC_TYPE **vec) {
+    cvec_x_set_size(vec, cvec_x_size(vec) - 1);
+}
+
+void cvec_x_erase(CVEC_TYPE **vec, size_t i) {
+    CVEC_ASSERT(vec);
+    if (*vec) {
+        const size_t cv_sz = cvec_x_size(vec);
+        if (i < cv_sz) {
+            cvec_x_set_size(vec, cv_sz - 1);
+            for (size_t cv_x = i; cv_x < (cv_sz - 1); ++cv_x) {
+                (*vec)[cv_x] = (*vec)[cv_x + 1];
+            }
+        }
+    }
+}
+
+void cvec_x_free(CVEC_TYPE **vec) {
+    CVEC_ASSERT(vec);
+    if (*vec) {
+        size_t *p1 = &((size_t *)*vec)[-2];
+        CVEC_FREE(p1);
+    }
+}
+
+CVEC_TYPE *cvec_x_begin(CVEC_TYPE **vec) {
+    CVEC_ASSERT(vec);
+    return *vec;
+}
+
+const CVEC_TYPE *cvec_x_cbegin(CVEC_TYPE **vec) {
+    return cvec_x_begin(vec);
+}
+
+CVEC_TYPE *cvec_x_end(CVEC_TYPE **vec) {
+    CVEC_ASSERT(vec);
+    return *vec ? &((*vec)[cvec_x_size(vec)]) : NULL;
+}
+
+const CVEC_TYPE *cvec_x_cend(CVEC_TYPE **vec) {
+    return cvec_x_end(vec);
+}
+
+void cvec_x_push_back(CVEC_TYPE **vec, CVEC_TYPE value) {
+    CVEC_ASSERT(vec);
+    size_t cv_cap = cvec_x_capacity(vec);
+    if (cv_cap <= cvec_x_size(vec)) {
+        cvec_x_grow(vec, cv_cap * CVEC_LOGG + 1);
+    }
+    (*vec)[cvec_x_size(vec)] = value;
+    cvec_x_set_size(vec, cvec_x_size(vec) + 1);
+}
+
+CVEC_TYPE cvec_x_at(CVEC_TYPE **vec, size_t i) {
+    CVEC_ASSERT(vec);
+    if (i >= cvec_x_size(vec) || i < 0) {
+        CVEC_OOBH(__func__, vec, i);
+        CVEC_TYPE ret = CVEC_OOBVAL;
+        return ret;
+    }
+    return (*vec)[i];
+}
+
+void cvec_x_reserve(CVEC_TYPE **vec, size_t new_cap) {
+    if (new_cap <= cvec_x_capacity(vec)) {
+        return;
+    }
+    cvec_x_grow(vec, new_cap);
+}
+
+void cvec_x_shrink_to_fit(CVEC_TYPE **vec) {
+    if (cvec_x_capacity(vec) > cvec_x_size(vec)) {
+        cvec_x_grow(vec, cvec_x_size(vec));
+    }
+}
+
+void cvec_x_assign_fill(CVEC_TYPE **vec, size_t count, CVEC_TYPE value) {
+    CVEC_ASSERT(vec);
+    cvec_x_reserve(vec, count);
+    cvec_x_set_size(vec, count); // If the buffer was bigger than new_cap, set size ourselves
+    for (size_t i = 0; i < count; i++) {
+        (*vec)[i] = value;
+    }
+}
+
+void cvec_x_assign_range(CVEC_TYPE **vec, CVEC_TYPE *first, CVEC_TYPE *last) {
+    CVEC_ASSERT(vec);
+    size_t new_size = ((ptrdiff_t)(last - first)) / sizeof(*first);
+    cvec_x_reserve(vec, new_size);
+    cvec_x_set_size(vec, new_size);
+    size_t i = 0;
+    for (CVEC_TYPE *it = first; it < last; it++, i++) {
+        (*vec)[i] = *it;
+    }
+}
+
+void cvec_x_assign_other(CVEC_TYPE **vec, CVEC_TYPE **other) {
+    cvec_x_assign_range(vec, cvec_x_begin(other), cvec_x_end(other));
+}
+
+CVEC_TYPE *cvec_x_data(CVEC_TYPE **vec) {
+    CVEC_ASSERT(vec);
+    return (*vec);
+}
+
+void cvec_x_resize(CVEC_TYPE **vec, size_t count) {
+    CVEC_TYPE value = { 0 };
+    cvec_x_resize_v(vec, count, value);
+}
+
+void cvec_x_resize_v(CVEC_TYPE **vec, size_t count, CVEC_TYPE value) {
+    CVEC_ASSERT(vec);
+    size_t old_size = cvec_x_size(vec);
+    cvec_x_set_size(vec, count);
+    if (cvec_x_capacity(vec) < count) {
+        cvec_x_reserve(vec, count);
+        for (CVEC_TYPE *it = (*vec) + old_size; it < cvec_x_end(vec); it++) {
+            *it = value;
+        }
+    }
+}
+
+void cvec_x_clear(CVEC_TYPE **vec) {
+    cvec_x_set_size(vec, 0);
+}
+
+CVEC_TYPE cvec_x_front(CVEC_TYPE **vec) {
+    CVEC_ASSERT(vec);
+    return (*vec)[0];
+}
+
+CVEC_TYPE *cvec_x_front_p(CVEC_TYPE **vec) {
+    CVEC_ASSERT(vec);
+    return (*vec);
+}
+
+CVEC_TYPE cvec_x_back(CVEC_TYPE **vec) {
+    return cvec_x_end(vec)[-1];
+}
+
+CVEC_TYPE *cvec_x_back_p(CVEC_TYPE **vec) {
+    return cvec_x_end(vec) - 1;
+}
+
+size_t cvec_x_max_size(CVEC_TYPE **vec) {
+    return SIZE_MAX / sizeof(**vec);
+}
+
+CVEC_TYPE *cvec_x_insert(CVEC_TYPE **vec, size_t index, CVEC_TYPE value) {
+    CVEC_ASSERT(vec);
+    if (index > cvec_x_size(vec) || index < 0) {
+        return NULL; // TODO: What?
+    }
+    size_t new_size = cvec_x_size(vec) + 1;
+    cvec_x_reserve(vec, new_size);
+    cvec_x_set_size(vec, new_size);
+    CVEC_TYPE *ret = *vec + index;
+    for (CVEC_TYPE *it = cvec_x_back_p(vec); it > ret; it--) {
+        *it = it[-1];
+    }
+    *ret = value;
+    return ret;
+}
+
+CVEC_TYPE *cvec_x_insert_it(CVEC_TYPE **vec, CVEC_TYPE *it, CVEC_TYPE value) {
+    CVEC_ASSERT(vec);
+    size_t index = (it - *vec) / sizeof(**vec);
+    return cvec_x_insert(vec, index, value);
+}
+
+//
+// Private functions
+//
+
+static void cvec_x_set_capacity(CVEC_TYPE **vec, size_t size) {
     CVEC_ASSERT(vec);
     if (*vec) {
         ((size_t *)*vec)[-1] = size;
     }
-})
+}
 
-CVEC_DEF(void, set_size, (CVEC_TYPE **vec, size_t size), {
+static void cvec_x_set_size(CVEC_TYPE **vec, size_t size) {
     CVEC_ASSERT(vec);
     if (*vec) {
         ((size_t *)*vec)[-2] = size;
     }
-})
+}
 
-CVEC_DEF(size_t, capacity, (CVEC_TYPE **vec), {
-    CVEC_ASSERT(vec);
-    return *vec ? ((size_t *)*vec)[-1] : (size_t)0;
-})
-
-CVEC_DEF(size_t, size, (CVEC_TYPE **vec), {
-    CVEC_ASSERT(vec);
-    return *vec ? ((size_t *)*vec)[-2] : (size_t)0;
-})
-
-CVEC_DEF(int, empty, (CVEC_TYPE **vec), {
-    return CVEC_CALL(size, vec) == 0;
-})
-
-CVEC_DEF(void, grow, (CVEC_TYPE **vec, size_t count), {
+static void cvec_x_grow(CVEC_TYPE **vec, size_t count) {
     CVEC_ASSERT(vec);
     const size_t cv_sz = count * sizeof(**vec) + sizeof(size_t) * 2;
     size_t *cv_p1 = &((size_t *)*vec)[-2];
     size_t *cv_p2 = CVEC_REALLOC(cv_p1, (cv_sz));
     CVEC_ASSERT(cv_p2);
     *vec = (void *)(&cv_p2[2]);
-    CVEC_CALL(set_capacity, vec, count);
-})
-
-CVEC_DEF(void, pop_back, (CVEC_TYPE **vec), {
-    CVEC_CALL(set_size, vec, CVEC_CALL(size, vec) - 1);
-})
-
-CVEC_DEF(void, erase, (CVEC_TYPE **vec, size_t i), {
-    CVEC_ASSERT(vec);
-    if (*vec) {
-        const size_t cv_sz = CVEC_CALL(size, vec);
-        if (i < cv_sz) {
-            CVEC_CALL(set_size, vec, cv_sz - 1);
-            for (size_t cv_x = i; cv_x < (cv_sz - 1); ++cv_x) {
-                (*vec)[cv_x] = (*vec)[cv_x + 1];
-            }
-        }
-    }
-})
-
-CVEC_DEF(void, free, (CVEC_TYPE **vec), {
-    CVEC_ASSERT(vec);
-    if (*vec) {
-        size_t *p1 = &((size_t *)*vec)[-2];
-        CVEC_FREE(p1);
-    }
-})
-
-CVEC_DEF(CVEC_TYPE *, begin, (CVEC_TYPE **vec), {
-    CVEC_ASSERT(vec);
-    return *vec;
-})
-
-CVEC_DEF(const CVEC_TYPE *, cbegin, (CVEC_TYPE **vec), {
-    return CVEC_CALL(begin, vec);
-})
-
-CVEC_DEF(CVEC_TYPE *, end, (CVEC_TYPE **vec), {
-    CVEC_ASSERT(vec);
-    return *vec ? &((*vec)[CVEC_CALL(size, vec)]) : NULL;
-})
-
-CVEC_DEF(const CVEC_TYPE *, cend, (CVEC_TYPE **vec), {
-    return CVEC_CALL(end, vec);
-})
-
-CVEC_DEF(void, push_back, (CVEC_TYPE **vec, CVEC_TYPE value), {
-    CVEC_ASSERT(vec);
-    size_t cv_cap = CVEC_CALL(capacity, vec);
-    if (cv_cap <= CVEC_CALL(size, vec)) {
-        CVEC_CALL(grow, vec, cv_cap * CVEC_LOGG + 1);
-    }
-    (*vec)[CVEC_CALL(size, vec)] = value;
-    CVEC_CALL(set_size, vec, CVEC_CALL(size, vec) + 1);
-})
-
-CVEC_DEF(CVEC_TYPE, at, (CVEC_TYPE **vec, size_t i), {
-    CVEC_ASSERT(vec);
-    if (i >= CVEC_CALL(size, vec) || i < 0) {
-        CVEC_OOBH(__func__, vec, i);
-        CVEC_TYPE ret = CVEC_OOBVAL;
-        return ret;
-    }
-    return (*vec)[i];
-})
-
-CVEC_DEF(void, reserve, (CVEC_TYPE **vec, size_t new_cap), {
-    if (new_cap <= CVEC_CALL(capacity, vec)) {
-        return;
-    }
-    CVEC_CALL(grow, vec, new_cap);
-})
-
-CVEC_DEF(void, shrink_to_fit, (CVEC_TYPE **vec), {
-    if (CVEC_CALL(capacity, vec) > CVEC_CALL(size, vec)) {
-        CVEC_CALL(grow, vec, CVEC_CALL(size, vec));
-    }
-})
-
-CVEC_DEF(void, assign_fill, (CVEC_TYPE **vec, size_t count, CVEC_TYPE value), {
-    CVEC_ASSERT(vec);
-    CVEC_CALL(reserve, vec, count);
-    CVEC_CALL(set_size, vec, count); // If the buffer was bigger than new_cap, set size ourselves
-    for (size_t i = 0; i < count; i++) {
-        (*vec)[i] = value;
-    }
-})
-
-CVEC_DEF(void, assign_range, (CVEC_TYPE **vec, CVEC_TYPE *first, CVEC_TYPE *last), {
-    CVEC_ASSERT(vec);
-    size_t new_size = ((ptrdiff_t)(last - first)) / sizeof(*first);
-    CVEC_CALL(reserve, vec, new_size);
-    CVEC_CALL(set_size, vec, new_size);
-    size_t i = 0;
-    for (CVEC_TYPE *it = first; it < last; it++, i++) {
-        (*vec)[i] = *it;
-    }
-})
-
-CVEC_DEF(void, assign_other, (CVEC_TYPE **vec, CVEC_TYPE **other), {
-    CVEC_CALL(assign_range, vec, CVEC_CALL(begin, other), CVEC_CALL(end, other));
-})
-
-CVEC_DEF(CVEC_TYPE *, data, (CVEC_TYPE **vec), {
-    CVEC_ASSERT(vec);
-    return (*vec);
-})
-
-CVEC_DEF(void, resize, (CVEC_TYPE **vec, size_t count)) {
-    CVEC_TYPE value = { 0 };
-    CVEC_CALL(resize_v, vec, count, value);
+    cvec_x_set_capacity(vec, count);
 }
 
-CVEC_DEF(void, resize_v, (CVEC_TYPE **vec, size_t count, CVEC_TYPE value), {
-    CVEC_ASSERT(vec);
-    size_t old_size = CVEC_CALL(size, vec);
-    CVEC_CALL(set_size, vec, count);
-    if (CVEC_CALL(capacity, vec) < count) {
-        CVEC_CALL(reserve, vec, count);
-        for (CVEC_TYPE *it = (*vec) + old_size; it < CVEC_CALL(end, vec); it++) {
-            *it = value;
-        }
-    }
-})
-
-CVEC_DEF(void, clear, (CVEC_TYPE **vec), {
-    CVEC_CALL(set_size, vec, 0);
-})
-
-CVEC_DEF(CVEC_TYPE, front, (CVEC_TYPE **vec), {
-    CVEC_ASSERT(vec);
-    return (*vec)[0];
-})
-
-CVEC_DEF(CVEC_TYPE *, front_p, (CVEC_TYPE **vec), {
-    CVEC_ASSERT(vec);
-    return (*vec);
-})
-
-CVEC_DEF(CVEC_TYPE, back, (CVEC_TYPE **vec), {
-    return CVEC_CALL(end, vec)[-1];
-})
-
-CVEC_DEF(CVEC_TYPE *, back_p, (CVEC_TYPE **vec), {
-    return CVEC_CALL(end, vec) - 1;
-})
-
-CVEC_DEF(size_t, max_size, (CVEC_TYPE **vec), {
-    return SIZE_MAX / sizeof(**vec);
-})
-
-CVEC_DEF(CVEC_TYPE *, insert, (CVEC_TYPE **vec, size_t index, CVEC_TYPE value), {
-    CVEC_ASSERT(vec);
-    if (index > CVEC_CALL(size, vec) || index < 0) {
-        return NULL; // TODO: What?
-    }
-    size_t new_size = CVEC_CALL(size, vec) + 1;
-    CVEC_CALL(reserve, vec, new_size);
-    CVEC_CALL(set_size, vec, new_size);
-    CVEC_TYPE *ret = *vec + index;
-    for (CVEC_TYPE *it = CVEC_CALL(back_p, vec); it > ret; it--) {
-        *it = it[-1];
-    }
-    *ret = value;
-    return ret;
-})
-
-CVEC_DEF(CVEC_TYPE *, insert_it, (CVEC_TYPE **vec, CVEC_TYPE *it, CVEC_TYPE value), {
-    size_t index = (it - *vec) / sizeof(**vec);
-    return CVEC_CALL(insert, vec, index, value);
-})
+#endif
 
 #undef CVEC_TYPE
 
@@ -538,18 +449,13 @@ CVEC_DEF(CVEC_TYPE *, insert_it, (CVEC_TYPE **vec, CVEC_TYPE *it, CVEC_TYPE valu
 #   ifdef CVEC_OOBVAL
 #       undef CVEC_OOBVAL
 #   endif
+#   undef CVEC_ASSERT
+#   undef CVEC_MALLOC
+#   undef CVEC_REALLOC
+#   undef CVEC_FREE
 #endif
-
-
-#undef CVEC_ASSERT
-#undef CVEC_MALLOC
-#undef CVEC_REALLOC
-#undef CVEC_FREE
 
 #undef CVEC_CONCAT2_IMPL
 #undef CVEC_CONCAT2
 
 #undef CVEC_FUN
-#undef CVEC_CALL
-#undef CVEC_DECL
-#undef CVEC_DEF
