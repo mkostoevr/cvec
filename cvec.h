@@ -459,3 +459,33 @@ static void cvec_x_grow(CVEC_TYPE **vec, size_t count) {
 #undef CVEC_CONCAT2
 
 #undef CVEC_FUN
+
+#undef cvec_x_new
+#undef cvec_x_capacity
+#undef cvec_x_size
+#undef cvec_x_empty
+#undef cvec_x_pop_back
+#undef cvec_x_erase
+#undef cvec_x_free
+#undef cvec_x_begin
+#undef cvec_x_cbegin
+#undef cvec_x_end
+#undef cvec_x_cend
+#undef cvec_x_push_back
+#undef cvec_x_at
+#undef cvec_x_reserve
+#undef cvec_x_shrink_to_fit
+#undef cvec_x_assign_fill
+#undef cvec_x_assign_range
+#undef cvec_x_assign_other
+#undef cvec_x_data
+#undef cvec_x_resize
+#undef cvec_x_resize_v
+#undef cvec_x_clear
+#undef cvec_x_front
+#undef cvec_x_front_p
+#undef cvec_x_back
+#undef cvec_x_back_p
+#undef cvec_x_max_size
+#undef cvec_x_insert
+#undef cvec_x_insert_it
