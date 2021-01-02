@@ -102,6 +102,10 @@
 #define cvec_x_insert CVEC_FUN(insert)
 #define cvec_x_insert_it CVEC_FUN(insert_it)
 
+#define cvec_x_grow CVEC_FUN(grow)
+#define cvec_x_set_capacity CVEC_FUN(set_capacity)
+#define cvec_x_set_size CVEC_FUN(set_size)
+
 //
 // External declarations
 //
@@ -489,3 +493,6 @@ static void cvec_x_grow(CVEC_TYPE **vec, size_t count) {
 #undef cvec_x_max_size
 #undef cvec_x_insert
 #undef cvec_x_insert_it
+#undef cvec_x_grow
+#undef cvec_x_set_capacity
+#undef cvec_x_set_size
