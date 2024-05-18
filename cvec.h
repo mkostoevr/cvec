@@ -76,6 +76,7 @@
 #define cvec_x_capacity CVEC_FUN(capacity)
 #define cvec_x_size CVEC_FUN(size)
 #define cvec_x_empty CVEC_FUN(empty)
+#define cvec_x_pop_front CVEC_FUN(pop_front)
 #define cvec_x_pop_back CVEC_FUN(pop_back)
 #define cvec_x_erase CVEC_FUN(erase)
 #define cvec_x_free CVEC_FUN(free)
@@ -121,6 +122,9 @@ size_t cvec_x_size(CVEC_TYPE **vec);
 
 /// Returns non-zero if the vector is empty.
 int cvec_x_empty(CVEC_TYPE **vec);
+
+/// Removes the first element from the vector, returns the removed element.
+CVEC_TYPE cvec_x_pop_front(CVEC_TYPE **vec);
 
 /// Removes the last element from the vector, returns the removed element.
 CVEC_TYPE cvec_x_pop_back(CVEC_TYPE **vec);
@@ -238,6 +242,15 @@ size_t cvec_x_size(CVEC_TYPE **vec) {
 
 int cvec_x_empty(CVEC_TYPE **vec) {
     return cvec_x_size(vec) == 0;
+}
+
+CVEC_TYPE cvec_x_pop_front(CVEC_TYPE **vec) {
+    CVEC_ASSERT(vec);
+    CVEC_ASSERT(*vec);
+    CVEC_ASSERT(cvec_x_size(vec) > 0);
+    CVEC_TYPE result = (*vec)[0];
+    cvec_x_erase(vec, 0);
+    return result;
 }
 
 CVEC_TYPE cvec_x_pop_back(CVEC_TYPE **vec) {
