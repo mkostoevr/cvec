@@ -122,8 +122,8 @@ size_t cvec_x_size(CVEC_TYPE **vec);
 /// Returns non-zero if the vector is empty.
 int cvec_x_empty(CVEC_TYPE **vec);
 
-/// Removes the last element from the vector.
-void cvec_x_pop_back(CVEC_TYPE **vec);
+/// Removes the last element from the vector, returns the removed element.
+CVEC_TYPE cvec_x_pop_back(CVEC_TYPE **vec);
 
 /// Removes the element at index i from the vector.
 void cvec_x_erase(CVEC_TYPE **vec, size_t i);
@@ -240,8 +240,13 @@ int cvec_x_empty(CVEC_TYPE **vec) {
     return cvec_x_size(vec) == 0;
 }
 
-void cvec_x_pop_back(CVEC_TYPE **vec) {
-    cvec_x_set_size(vec, cvec_x_size(vec) - 1);
+CVEC_TYPE cvec_x_pop_back(CVEC_TYPE **vec) {
+    CVEC_ASSERT(vec);
+    CVEC_ASSERT(*vec);
+    const size_t size = cvec_x_size(vec);
+    CVEC_ASSERT(size > 0);
+    cvec_x_set_size(vec, size - 1);
+    return (*vec)[size - 1];
 }
 
 void cvec_x_erase(CVEC_TYPE **vec, size_t i) {
